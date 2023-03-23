@@ -1,0 +1,2 @@
+In next version try to add set file location for saving converted file
+In next version add custom resolution

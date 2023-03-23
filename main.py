@@ -259,9 +259,6 @@ def settings_func():
           fg='white').place(y=120)
     Label(settings_photosconverter, text='Coming Soon!', fg='white', bg='grey').place(x=8, y=135)
 
-## adds comment
-    
-
     # Opens issues.txt file wherein known bug(s) are listed
     def open_known_issues_file():
         system("start issues.txt")
