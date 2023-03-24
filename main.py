@@ -156,6 +156,8 @@ def checkexitstate():
 # https://stackoverflow.com/questions/16242782/change-words-on-tkinter-messagebox-buttons
 checkbtn_val = ''
 exitpromptwindow = ''
+
+
 def quit_btn_func():
     global checkbtn_val
     global exitpromptwindow
