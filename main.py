@@ -2,7 +2,8 @@
 # A simple image conversion app created using Python3 with Tkinter module
 # Uses ffmpeg for windows to convert images
 # official ffmpeg site: https://ffmpeg.org/ (used as backend to convert images)
-
+# import python debugger
+import pdb
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
@@ -82,13 +83,15 @@ def destroy_panel():
 # this function is called when user clicks Convert
 def convert():
     global fileloc
-    convertFile_widget.config(cursor="watch")
     # Pause for 3 seconds
     root.after(3000)
     convertFile_widget.config(cursor="hand2")
-    # variable to store and get value from fileFormat_Selector variable which determines what format user has
-    # selected
+    # variable to store and get value from fileFormat_Selector variable which determines what format user has selected
     # read save file data
+    prompt_user_for_save_location = filedialog.askdirectory()
+    print(prompt_user_for_save_location)
+    pdb.set_trace()
+    open_default_save_location_config_file = open('save_loc.txt', 'r')
     read_file_path = open('save_loc.txt', 'r')
     save_loccation = read_file_path.read() + '/'
     print("location: ", save_loccation)
@@ -242,31 +245,20 @@ def settings_func():
           fg='white').pack(side='left', anchor='n', expand=False, fill='none')
     Label(settings_photosconverter, text='_' * 40, bg='grey', fg='white').pack(side='left', anchor='n',
                                                                                fill='none', expand=False)
-
     Checkbutton(settings_photosconverter, variable=settingsexityesnoVal, text='disabled by default', onvalue='active',
                 offvalue='disabled', state=settingsexityesnoValstate, command=ckBtnUpd).place(x=10, y=25)
-    # get username which is default location also using windows commands
-    _get_default_location = environ['USERPROFILE'] + '\\pictures'
-    open_save_location_config_file = open('save_loc.txt', 'r')
-    read_save_file_data = open_save_location_config_file.read()
-    Label(settings_photosconverter, text='File Save Location:' + '_' * 50, underline=0,
-          fg='white', bg='grey').place(y=55)
-    Label(settings_photosconverter, text=read_save_file_data, fg='white', bg='grey').place(x=8, y=73)
-    open_save_location_config_file.close()
-    Button(settings_photosconverter, text='Change', font=('ariel', 8), relief='flat',
-           command=_change_file_save_location).place(x=20, y=90)
     Label(settings_photosconverter, text='Define Custom Format(s) (Advanced Users):', underline=0, bg='grey',
-          fg='white').place(y=120)
-    Label(settings_photosconverter, text='Coming Soon!', fg='white', bg='grey').place(x=8, y=135)
+          fg='white').place(y=60)
+    Label(settings_photosconverter, text='Coming Soon!', fg='white', bg='grey').place(x=8, y=80)
 
     # Opens issues.txt file wherein known bug(s) are listed
     def open_known_issues_file():
         system("start issues.txt")
 
     issues_label = Label(settings_photosconverter, bg='grey', fg='white', text='Known issues: ')
-    issues_label.place(y=160)
+    issues_label.place(y=105)
     issues_button = Button(settings_photosconverter, text='Read', command=open_known_issues_file)
-    issues_button.place(x=10, y=180)
+    issues_button.place(x=10, y=125)
     settings_photosconverter.config(bg="grey")
     settings_photosconverter.wm_transient(root)
     settings_photosconverter.protocol("WM_DELETE_WINDOW", settings_cancel)
