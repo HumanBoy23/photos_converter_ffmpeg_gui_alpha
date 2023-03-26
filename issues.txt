@@ -11,7 +11,7 @@ Features to be included in the future:
 3) User can add their desired image formats in the format selector dropdown pane
 
 
-Time- 21:21
-Date- 09/03/2023
+Time- 19:50
+Date- 26/03/2023
 
 By- @HumanBoy23 (Dev)
