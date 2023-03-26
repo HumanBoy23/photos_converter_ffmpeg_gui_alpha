@@ -4,6 +4,7 @@
 # official ffmpeg site: https://ffmpeg.org/ (used as backend to convert images)
 # import python debugger
 import pdb
+import os
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
@@ -28,16 +29,28 @@ root.title("Image Converter Windows Beta by HumanBoy23")
 fileloc = ''
 # Default location to save converted file
 print("Line 29")
-default_saveloc = environ.get("USERPROFILE") + "\\pictures\\"
-print("Default save location:", default_saveloc)
-# Create save_config_file if not exist
-system("IF NOT EXIST save_loc.txt echo " + default_saveloc + ">save_loc.txt & echo Save location reset to default")
-# read save file data
-read_file_data_for_save_location = open('save_loc.txt', 'r')
-saveloc = read_file_data_for_save_location.read() + '/'
 
-print("Current Location to save file:", saveloc)
-read_file_data_for_save_location.close()
+
+def create_default_location():
+    default_saveloc = environ.get("USERPROFILE") + "\\pictures\\"
+    print("Default save location:", default_saveloc)
+    # Create save_config_file if not exist
+    system("IF NOT EXIST save_loc.txt echo " + default_saveloc + ">save_loc.txt & echo Save location reset to default")
+
+
+create_default_location()
+
+
+def read_save_location():
+    # read save file data
+    read_file_data_for_save_location = open('save_loc.txt', 'r')
+    saveloc = read_file_data_for_save_location.read()
+    print("Current Location to save file:", saveloc)
+    read_file_data_for_save_location.close()
+    return saveloc
+
+
+read_save_location()
 
 
 # Function for browsing or opening file(s) in your computer
@@ -84,50 +97,47 @@ def destroy_panel():
 def convert():
     global fileloc
     # Pause for 3 seconds
-    root.after(3000)
+    # root.after(3000)
     convertFile_widget.config(cursor="hand2")
     # variable to store and get value from fileFormat_Selector variable which determines what format user has selected
     # read save file data
-    prompt_user_for_save_location = filedialog.askdirectory()
-    print(prompt_user_for_save_location)
-    pdb.set_trace()
-    open_default_save_location_config_file = open('save_loc.txt', 'r')
-    read_file_path = open('save_loc.txt', 'r')
-    save_loccation = read_file_path.read() + '/'
-    print("location: ", save_loccation)
+    prompt_user_for_save_location = filedialog.askdirectory(parent=root,initialdir="/",title='Please select a directory')
+    read_save_location()
+    # Open save location config file
+    if prompt_user_for_save_location == '':
+        print("User cancle path selection")
+    else:
+        save_location_config_file = open('save_loc.txt', 'w')    # Overwrite save file
+        save_location_config_file.write(prompt_user_for_save_location)
+        save_location_config_file.close()        # Finally, close the file
+    save_loccation = read_save_location()
     get_user_selected_format = fileFormat_Selector.get()
     if fileloc == '':
         file_not_selected()
     else:
         if get_user_selected_format == "jpg":
             system("for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_loccation + "%~ni.jpg")
-            read_file_path.close()
             converted_message()
             destroy_panel()
         elif get_user_selected_format == "png":
             print(fileloc)
             system("for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i " + save_loccation + "%~ni.png")
-            read_file_path.close()
             converted_message()
             destroy_panel()
         elif get_user_selected_format == "jpeg":
             system("for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_loccation + "%~ni.jpeg""")
-            read_file_path.close()
             converted_message()
             destroy_panel()
         elif get_user_selected_format == "webp":
             system("for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_loccation + "%~ni.webp""")
-            read_file_path.close()
             converted_message()
             destroy_panel()
         elif get_user_selected_format == "ico":
             system("for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_loccation + "%~ni.ico""")
-            read_file_path.close()
             converted_message()
             destroy_panel()
         elif get_user_selected_format == "bmp":
             system("for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_loccation + "%~ni.bmp""")
-            read_file_path.close()
             converted_message()
             destroy_panel()
         else:
