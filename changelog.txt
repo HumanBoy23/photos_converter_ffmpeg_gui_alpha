@@ -1,0 +1,6 @@
+Change log 15:05 28/03/2023
+Fixed: File dialog will only show path instead of full path ie. no "/" at last
+
+Optimization:
+Changed code for storing and getting user selected save location path for saving converted files. Now relies on memory rather than a config/save file
+for reading the location/path to save converted image, further reducing code.
