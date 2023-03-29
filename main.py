@@ -42,10 +42,14 @@ def open_explorer():
                                                     ("icons", "*.ico")))
     print(fileloc)
     if fileloc != "":
-        img = ImageTk.PhotoImage(Image.open(fileloc).resize((440, 322)))
-        panel = Label(root, image=img, relief="groove")
-        panel.photo = img
-        panel.place(x=10, y=40)
+        try:
+            img = ImageTk.PhotoImage(Image.open(fileloc).resize((440, 322)))
+            panel = Label(root, image=img, relief="groove")
+            panel.photo = img
+            panel.place(x=10, y=40)
+        except Exception as e:
+            fileloc = ''
+            messagebox.showwarning('Wrong Image Format!', 'This type of file is not supported!')
 
 
 # Global variable to get the location where the converted file is saved form convert() function
@@ -88,39 +92,10 @@ def convert():
         if fileloc == '':
             file_not_selected()
         else:
-            if get_user_selected_format == "jpg":
-                system(
-                    "for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_location + "%~ni.jpg")
-                converted_message()
-                destroy_panel()
-            elif get_user_selected_format == "png":
-                print(fileloc)
-                system(
-                    "for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i " + save_location + "%~ni.png")
-                converted_message()
-                destroy_panel()
-            elif get_user_selected_format == "jpeg":
-                system(
-                    "for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_location + "%~ni.jpeg""")
-                converted_message()
-                destroy_panel()
-            elif get_user_selected_format == "webp":
-                system(
-                    "for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_location + "%~ni.webp""")
-                converted_message()
-                destroy_panel()
-            elif get_user_selected_format == "ico":
-                system(
-                    "for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_location + "%~ni.ico""")
-                converted_message()
-                destroy_panel()
-            elif get_user_selected_format == "bmp":
-                system(
-                    "for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_location + "%~ni.bmp""")
-                converted_message()
-                destroy_panel()
-            else:
-                print("Unknown Error Occurred!")
+            print("Selected: " + get_user_selected_format)
+            system("for %i in (" + fileloc + ") do ffmpeg -hide_banner -loglevel panic -i %i -y " + save_location + "%~ni." + get_user_selected_format)
+            converted_message()
+            destroy_panel()
 
 
 # Function or Logic for Quit
@@ -304,7 +279,7 @@ def settings_cancel():
 
 # PREDEFINED BUTTON NAMES
 openFile = "File"
-convertFile = "Convert"
+convertFile = "Save"
 
 # *** FOR FUTURE REFERENCE *** #
 # Button relief (style) keywords: ridge, flat, groove, sunken, raised

@@ -1,8 +1,7 @@
 Known Issues:
 
-1) App might not save photos if user has changed drive letter and did not configure the app again to the changed drive letter or save location
-2) Converted image files will be compressed to 96 dpi. Not an issue but still need to code it out
-3) Some image previews might stretch or not look good. Aspect ratio problem
+1) Converted image files will be compressed to 96 dpi. Not an issue but still need to code it out
+2) Some image previews might stretch or not look good. Aspect ratio problem
 
 Features to be included in the future:
 1) Height and Width (Resolution) adjustment
@@ -10,7 +9,7 @@ Features to be included in the future:
 3) User can add their desired image formats in the format selector dropdown pane
 
 
-Time- 19:50
-Date- 26/03/2023
+Time- 15:05
+Date- 28/03/2023
 
 By- @HumanBoy23 (Dev)

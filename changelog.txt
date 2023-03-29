@@ -1,5 +1,6 @@
 Change log 15:05 28/03/2023
-Fixed: File dialog will only show path instead of full path ie. no "/" at last
+Fixed: File dialog will only show path instead of full path ie. no "/" at last (better fix to be implemented)
+Fixed: App might not save photos if user has changed drive letter and did not configure the app again to the changed drive letter or save location
 
 Optimization:
 Changed code for storing and getting user selected save location path for saving converted files. Now relies on memory rather than a config/save file
