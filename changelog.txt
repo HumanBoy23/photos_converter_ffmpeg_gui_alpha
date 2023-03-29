@@ -1,7 +1,16 @@
 Change log 15:05 28/03/2023
-Fixed: File dialog will only show path instead of full path ie. no "/" at last (better fix to be implemented)
-Fixed: App might not save photos if user has changed drive letter and did not configure the app again to the changed drive letter or save location
+Fix: File dialog will only show path instead of full path ie. no "/" at last (better fix to be implemented)
+
+App might not save photos if user has changed drive letter and did not configure the app again to the changed drive letter or save location
 
 Optimization:
 Changed code for storing and getting user selected save location path for saving converted files. Now relies on memory rather than a config/save file
 for reading the location/path to save converted image, further reducing code.
+
+Change log 12:24 29/03/2023
+Fix: issue where user selects non-image type files preventing exceptions and possible crashes and notifies user to select an image file
+
+Optimization:
+Removed nesting for determining selected image format that user selects for saving the image into a format. Instead use data from variable to determine selected format
+
+Rename "convert" button to "save" button
