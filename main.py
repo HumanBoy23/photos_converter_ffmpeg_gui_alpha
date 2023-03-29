@@ -337,6 +337,5 @@ root.config(bg="grey")
 root.protocol("WM_DELETE_WINDOW", checkexitstate)
 ''' infinite loop which is required to run tkinter program infinitely until
     an interrupt occurs '''
-root.update()
 root.mainloop()
  
